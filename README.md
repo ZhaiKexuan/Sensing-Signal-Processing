@@ -45,7 +45,20 @@ The problem for this task is to use one ultrasonic sensor to accurately measure 
 | Sensor1 (x)  | Sensor1 (y) |
 | ------------ | ----------- |
 |     6.62     |     200     |
-| Content Cell  | Content Cell  |
+| 8.87  | 300  |
+| 11.56  | 400  |
+| 14.39  | 500  |
+| 17.18  | 600  |
+| 20.04  | 700  |
+| 22.93  | 800  |
+| 25.55  | 900  |
+| 28.24  | 1000  |
+| 31.42  | 1100  |
+| 34.27  | 1200  |
+| 37.06  | 1300  |
+| 39.91  | 1400  |
+| 43.02  | 1500  |
+
 
 *The signal processing result for ultrasonic sensor 1 is shown in figure 4:*  
 
