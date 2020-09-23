@@ -21,9 +21,10 @@ The problem for this task is to use one ultrasonic sensor to accurately measure 
   - The first step is sending and receiving sound waves from the ultrasonic sensor. To implement that, the Arduino is utilized for programming
   - The second step is reading high pulse duration
   - The third step is dividing Kalman filter output by 200 to convert into total time value in microseconds after Kalman filter implementation
+  - By changing delay multiple times, the experimental results show that no delay at the end of the loop resulted in the fastest possible sampling rate
 
 - Kalman filter
-  The R-value (measurement confidence) is determined offline utilizing the average method. The sequence of the method is shown below:
+  ### The R-value (measurement confidence) is determined offline utilizing the average method. The sequence of the method is shown below:
   - Used same R-value for both sensors as calculated in part 2 of project 1
   - Set same initialized updated error covariance to 100000
   - rediction stage using the first sensor output as the prediction
