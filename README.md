@@ -24,7 +24,7 @@ The problem for this task is to use one ultrasonic sensor to accurately measure 
   - By changing delay multiple times, the experimental results show that no delay at the end of the loop resulted in the fastest possible sampling rate
 
 - Kalman filter
-  * The R-value (measurement confidence) is determined offline utilizing the average method. The sequence of the method is shown below:*
+  *The R-value (measurement confidence) is determined offline utilizing the average method. The sequence of the method is shown below:*
   - Used same R-value for both sensors as calculated in part 2 of project 1
   - Set same initialized updated error covariance to 100000
   - rediction stage using the first sensor output as the prediction
