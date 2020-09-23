@@ -223,79 +223,72 @@ The equations of localization is shown below:
 
 <div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/equation1.png"/></div>  
 
+Where:  
+dxk2 is Kalman filter output of sensor 2 distance,  
+L is the distance between the two sensors,  
+xx is the initial calculation of x,  
+y: calculation of y,  
+x: recalculation of x that results in less error.
+
 ---
 
 ## 3.3	Hardware and Software Implementation
 
 - Hardware Implementation:  
-The hardware connection follows these steps:
-  - Ultrasonic sensor 1:
-    - Trig connected to Arduino pin 13
-    - Echo connected to Arduino pin 12
-    - The power is 5V 
-    - Different ground than LED and buzzer
-  - Ultrasonic sensor 2:
-    - Trig connected to Arduino pin 11
-    - Echo connected to Arduino pin 10
-    - Shared same power as sensor 1
-    - Shared same ground as sensor 1
+The steps of hardware connection are shown below:
+  - Hardware connections
+    - LED and Buzzer same as parts 1 and 2
+    - Ultrasonic sensors same as part 2
 
-<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture9.jpg"/></div>  
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture13.jpg"/></div>  
 
 - Software Implementation:  
-The programming process follows these steps (Same process as part 1, except for the following changes):
-  - Needed to define hardware connections for sensor 2
-  - Needed to initialize Kalman variables and covariances for two Kalman correction stages rather than one and PID throttle values for 300 microseconds, then set vehicle to neutral steering and throttle for 100 microseconds, then set vehicle to neutral steering and maximum reverse for 75 microseconds, and then set vehicle to neutral steering and throttle for 50 microseconds
-  - Needed to declare the calibration coefficients for sensor 2
-  - Needed to initialize measurement variables for two sensors rather than one
-  - Needed to send and receive sound waves from two sensors rather than one
-  - Needed to use two Kalman filter correction stages rather than one
-  - Conducted calibration before Kalman filter implementation, rather than afterward as in part 1
+The steps of coding are shown below:
+  - Initialize Kalman variables and covariances for filters before and after localization
+  - Declare L (distance between the two sensors on the breadboard)
+  - Initialize localization variables
+  - Send and receive sound waves from ultrasonic sensor 1, read high pulse duration
+  - Convert high pulse duration of sensor 1 into total time value in microseconds
+  - Add radius of object to calibration equation to calculate distance in mm
+  - Send delay of 100 microseconds to avoid interferences between the two sensor outputs
+  - Same process for sensor 2 as sensor 1
+  - Kalman filters before localization for sensors 1 and 2 distances
+  - Once Kalman covariances of both x and y go under 0.0001, LED turned on and buzzer sounded
+  - Print results as: x (mm), y(mm), variance of x, variance of y
 
 ---
 
 ## 3.4 Experimental Results
 
-The experimental result for Sensor Fusion of Two Ultrasonic Sensors to measure an obstacle 200 mm away is shown in figure 11. The error in measurement is 0.97%, the variance in data is 1.878630 and time for Kalman Variance to decrease bellow 0.0001 is 3.35 s.
+The experimental result for ultrasonic-based localization to measure an obstacle at x = 200 mm and y=400 mm away is shown in figure 18. The error in measurement of x is 3.70%, y is 3.36%. The variance in x data is 12.31286, in y data is 0.03528 and time for Kalman Variance to decrease bellow 0.0001 is 10.75 s.
 
-<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture10.png"/></div>  
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture14.png"/></div>  
 
-The experimental result for Sensor Fusion of Two Ultrasonic Sensors to measure an obstacle 850 mm away is shown in figure 12. The error in measurement is 0.31%, the variance in data is 0.215971 and time for Kalman Variance to decrease bellow 0.0001 is 3.47 s.
+The experimental result for ultrasonic-based localization to measure an obstacle at x = 90 mm and y = 600 mm away is shown in figure 19. The error in measurement of x is 3.32%, y is 0.48%. The variance in x data is 25.15365, in y data is 0.343186 and time for Kalman Variance to decrease bellow 0.0001 is 10.87 s.
 
-<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture11.png"/></div>  
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture15.png"/></div>  
 
-The experimental result for Sensor Fusion of Two Ultrasonic Sensors to measure an obstacle 1500 mm away is shown in figure 13. The error in measurement is 0.83%, the variance in data is 0.091745 and time for Kalman Variance to decrease bellow 0.0001 is 3.79 s.
+The experimental result for ultrasonic-based localization to measure an obstacle at x = 15 mm and y = 80 mm away is shown in figure 20. The error in measurement of x is 5.37%, y is 0.97%. The variance in x data is 35.63241, in y data is 0.758432 and time for Kalman Variance to decrease bellow 0.0001 is 11.38 s.
 
-<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture12.png"/></div>  
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture16.png"/></div>  
 
-The experimental results are organized in table 3.
+The experimental results are organized in table 4.
 
 ---
 
+## Conclusions and Discussions
 
+---
 
+## 4.1 Conclusions (a summary of the results of different approaches)
 
+- Using a Kalman filter for sensor fusion with two sensors in part 2 resulted in overall less error and variance in the measurement data, and shorter time for the LED and buzzer to turn on than only using one sensor in part 1
+- It was difficult to accurately measure the x-coordinate of the cylindrical object in part 3, with the error and variance of the x-coordinate data being relatively much higher than the y-coordinate
 
+## 4.2 Discussions (a comparison of different approaches, and potential future work to further improve each approach)
 
-
-
-
-
-
-
-
-## 3.1 Conclusions (a summary of the results of different approaches)
-
-- The ACC of the vehicle was implemented successfully, with the front of the vehicle consistently stopping at exactly 30 cm from obstacles in front
-- The LKA was implemented with slightly less success. The team occasionally had problems with tires on one side of the vehicle driving on top of the lanes rather than keeping completely inside the lanes
-- The vehicle seemed to work the best under cooler weather conditions while being more unpredictable as the temperature warmed up
-
-## 3.2 3.2	Discussions (a comparison of different approaches, and potential future work to further improve each approach)
-
-- For future work, the team would construct a path themselves on the same ramp that the formal test was to be conducted on so that the team would have more opportunities to test their vehicle
-- Also, the team would keep one sensor on each side of the vehicle and use the difference of distance between these two sensors to implement LKA to identify differences between approaches
-- Also, the team would keep two sensors on the same side of the vehicle and use the first sensor to measure the distance and use the other sensor measurement as a comparison to make sure the vehicle and lane are parallel.
-- Finally, the team would spend more time testing their vehicle in weather conditions similar to the predicted weather for the formal test
+- •	There were two differences in process between parts 1 and 2: when calibration occurred, and how many sensors were used. We could not exactly determine which of these differences contributed to part 2 having less error and variance. To be able to better understand the effect of calibration occurring either before or after filtering, the team would run tests with calibration occurring before and after filtering using only one sensor.
+- •	In order to more accurately measure the x-coordinate in part 3, the team would use a larger breadboard to increase the distance between the two sensors, in order to reduce the possibility of interference between the two sensors’ signals.
 
 
 
