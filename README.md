@@ -278,8 +278,6 @@ The experimental results are organized in table 4.
 
 ## Conclusions and Discussions
 
----
-
 ## 4.1 Conclusions (a summary of the results of different approaches)
 
 - Using a Kalman filter for sensor fusion with two sensors in part 2 resulted in overall less error and variance in the measurement data, and shorter time for the LED and buzzer to turn on than only using one sensor in part 1
