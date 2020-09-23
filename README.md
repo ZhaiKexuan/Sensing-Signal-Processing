@@ -25,17 +25,20 @@ The problem for this task is to use one ultrasonic sensor to accurately measure 
 
 - Kalman filter  
 *The R-value (measurement confidence) is determined offline utilizing the average method. The sequence of the method is shown below:*
-  - Used same R-value for both sensors as calculated in part 2 of project 1
-  - Set same initialized updated error covariance to 100000
-  - rediction stage using the first sensor output as the prediction
-  - Correction stage 1 updated state estimate using the first sensor output
-  - Correction stage 2 updated state estimate using second sensor output and state estimate from correction stage 1
+  - The sensor reading at 20 cm and 150 cm were taken
+  - The variance in data was calculated
+  - The variances were averaged to get the final R-value  
+*The initialized updated error covariance was set to 100000. Because the first prediction is untrustable. The value of 100000 resulted in the best output from the Kalman filter by operating several tests.*
 
-- PID Controller
-  - Set reference distance so that the front of the vehicle would stop at a distance of 30 cm from an obstacle
-  - Used PID error (the difference between reference distance and sensor output) along with PID gains to calculate PID value (throttle)
-  - PID value was used to tell the vehicle whether to reverse, stay neutral, or go forward
-  - Tuned PID gains to optimize performance of the vehicle (kp = 1, ki = 0, kd = 0.7)
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture2.png"/></div>  
+
+- Calibration  
+*The technical approach for calibration is shown below:*
+  - For all four ultrasonic sensors, recorded data of filtered measurements for obstacles between 20 and 150 cm away with 10 cm increments
+  - The data was averaged at each measurement distance.
+  - Graphed these averages to their corresponding actual distance in mm.
+  - A and b were Used to convert Kalman filter output from microseconds to distance in mm.  
+*Sensor data was collected separately for calibration. The data collected from sensor 1 is shown in table 1.*
 
 ---
 
