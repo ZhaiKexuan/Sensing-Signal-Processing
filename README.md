@@ -142,7 +142,7 @@ The hardware connection follows these steps:
     - Shared same power as sensor 1
     - Shared same ground as sensor 1
 
-<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture9.png"/></div>  
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture9.jpg"/></div>  
 
 - Software Implementation:  
 The programming process follows these steps (Same process as part 1, except for the following changes):
