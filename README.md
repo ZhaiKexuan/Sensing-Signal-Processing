@@ -32,54 +32,71 @@ The problem for this task is to use one ultrasonic sensor to accurately measure 
 
 <div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture2.png"/></div>  
 
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture3.png"/></div>  
+
 - Calibration  
 *The technical approach for calibration is shown below:*
   - For all four ultrasonic sensors, recorded data of filtered measurements for obstacles between 20 and 150 cm away with 10 cm increments
   - The data was averaged at each measurement distance.
   - Graphed these averages to their corresponding actual distance in mm.
   - A and b were Used to convert Kalman filter output from microseconds to distance in mm.  
-*Sensor data was collected separately for calibration. The data collected from sensor 1 is shown in table 1.*
+*Sensor data was collected separately for calibration. The data collected from sensor 1 is shown in table 1.*  
+
+*(Table)*
+
+*The signal processing result for ultrasonic sensor 1 is shown in figure 4:*  
+
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture4.png"/></div>  
 
 ---
 
 ## 1.3	Hardware and Software Implementation
 
 - Hardware Implementation:
-  - The vehicle battery pack used to power servo motor for throttle
-  - Portable power bank used to power Arduino
-  - Steering control powered by Arduino Vin pin
-  - Ultrasonic sensor 1:
-    - Trig to Arduino pin 5
-    - Echo to Arduino pin 4
-    - Ground shared with all other ultrasonic sensors
-    - 5V power shared between all other ultrasonic sensors
-  - Ultrasonic sensor 2:
-    - Trig to Arduino pin 3
-    - Echo to Arduino pin 2
+  - LED was connected to Arduino pin 4 through a 1k resistor.
+  - The buzzer was connected to Arduino pin 5.
+  - LED and Buzzer shared the same ground.
+  - Ultrasonic sensor:
+    - Trig was connected to Arduino pin 13.
+    - The echo was connected to Arduino pin 12.
+    - The power of the ultrasonic sensor was 5V.
+    - Utilizing different ground was other than sharing the same ground with LED and Buzzer.
 
-<div align=center><img src="https://github.com/ZhaiKexuan/Adaptive-Cruise-Control-and-Autonomous-Lane-Keeping/blob/master/imgaes/Picture2.jpg"/></div>
+- Software Implementation:
+  - The hardware connections were defined
+  - Kalman variables and covariances were initialized
+  - Calibration coefficients were declared
+  - Measurement variables were declared
+  - Sound waves from the ultrasonic sensor were sent and received
+  - High pulse duration was Read
+  - Kalman filter prediction stage
+  - Kalman filter correction stage
+  - Convert Kalman filter output into total time value in microseconds
+  - Use calibration coefficients to calculate the distance in mm
+  - Once Kalman covariance under 0.0001, turn on LED and sound buzzer
+  - Print results in the following format: distance (mm), variance
 
-
-- Software Implementation
-  - Constrain throttle value to a maximum reverse of 1440 and a maximum forward throttle of 1535
-  - If statement to tell the car to shift to neutral when changing between forward and reverse and vice versa
-  - If the car is moving forward, is moving faster than 50 mm per loop iteration, and an obstacle is less than 1500 mm away from the car - set vehicle to neutral steering and throttle for 50 microseconds, then set vehicle to neutral steering and maximum reverse for 1 second, and then set vehicle to neutral steering and throttle for 50 microseconds
-  - Else statement for a close condition: set vehicle to PID steering value and PID throttle value for 100 microseconds, and then set vehicle to neutral steering and throttle for 50 microseconds
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture5.png"/></div>  
 
 ---
 
 ## 1.4 Experimental Results
 
-The experimental result at the start line is shown in the figure below:
+The experimental result for signal processing for using one ultrasonic sensor to measure an obstacle 200 mm away is shown in figure 6. The error in measurement is 2.54%, the variance in data is 0.295864 and time for Kalman Variance to decrease bellow 0.0001 is 3.31 s.
 
-<div align=center><img src="https://github.com/ZhaiKexuan/Adaptive-Cruise-Control-and-Autonomous-Lane-Keeping/blob/master/imgaes/Picture3.png"/></div>
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture6.png"/></div>  
 
+The experimental result for signal processing for using one ultrasonic sensor to measure an obstacle 850 mm away is shown in figure 7. The error in measurement is 0.83%, the variance in data is 0.321486 and time for Kalman Variance to decrease bellow 0.0001 is 2.77 s.
 
-The vehicle can stop properly. This is the picture at the finish line: 
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture7.png"/></div>  
 
-<div align=center><img src="https://github.com/ZhaiKexuan/Adaptive-Cruise-Control-and-Autonomous-Lane-Keeping/blob/master/imgaes/Picture4.png"/></div>
+The experimental result for signal processing for using one ultrasonic sensor to measure an obstacle 1500 mm away is shown in figure 8. The error in measurement is 0.45%, the variance in data is 0.902735 and time for Kalman Variance to decrease bellow 0.0001 is 2.93 s.  
 
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture8.png"/></div>  
 
+The experimental results are organized in table 2:
+
+*table*
 ---
 
 ## Autonomous Lane Keeping
