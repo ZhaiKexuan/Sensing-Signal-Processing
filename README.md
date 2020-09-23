@@ -42,7 +42,10 @@ The problem for this task is to use one ultrasonic sensor to accurately measure 
   - A and b were Used to convert Kalman filter output from microseconds to distance in mm.  
 *Sensor data was collected separately for calibration. The data collected from sensor 1 is shown in table 1.*  
 
-*(Table)*
+| Sensor1 (x)  | Sensor1 (y) |
+| ------------ | ----------- |
+|     6.62     |     200     |
+| Content Cell  | Content Cell  |
 
 *The signal processing result for ultrasonic sensor 1 is shown in figure 4:*  
 
@@ -101,7 +104,6 @@ The experimental results are organized in table 2:
 
 ## Sensor Fusion of Two Ultrasonic Sensors
 
----
 
 ## 2.1 Problem Statement
 
@@ -175,8 +177,6 @@ The experimental results are organized in table 3.
 ---
 
 ## Ultrasound-based Localization
-
----
 
 ## 3.1 Problem Statement
 
