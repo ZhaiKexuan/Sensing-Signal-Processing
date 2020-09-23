@@ -42,22 +42,22 @@ The problem for this task is to use one ultrasonic sensor to accurately measure 
   - A and b were Used to convert Kalman filter output from microseconds to distance in mm.  
 *Sensor data was collected separately for calibration. The data collected from sensor 1 is shown in table 1.*  
 
-| :Sensor1 (x):  | :Sensor1 (y): |
+| Sensor1 (x)  | Sensor1 (y) |
 | ------------ | ----------- |
-|     :6.62:     |     :200:     |
-| :8.87:  | :300:  |
-| :11.56:  | :400:  |
-| :14.39:  | :500:  |
-| :17.18:  | :600:  |
-| :20.04:  | :700:  |
-| :22.93:  | :800:  |
-| :25.55:  | :900:  |
-| :28.24:  | :1000:  |
-| :31.42:  | :1100:  |
-| :34.27:  | :1200:  |
-| :37.06:  | :1300:  |
-| :39.91:  | :1400:  |
-| :43.02:  | :1500:  |
+|     6.62     |     200     |
+| 8.87  | 300  |
+| 11.56  | 400  |
+| 14.39  | 500  |
+| 17.18  | 600  |
+| 20.04 | 700  |
+| 22.93  | 800  |
+| 25.55  | 900  |
+| 28.24  | 1000  |
+| 31.42 | 1100  |
+| 34.27  | 1200  |
+| 37.06 | 1300  |
+| 39.91  | 1400  |
+| 43.02  | 1500  |
 
 *The signal processing result for ultrasonic sensor 1 is shown in figure 4:*  
 
@@ -111,11 +111,11 @@ The experimental result for signal processing for using one ultrasonic sensor to
 
 The experimental results are organized in table 2:
 
-| :Measure Distance:  | :Error in Measurement: | :Variance in Data: | :Time for Kalman Variance to decrease below 0.0001: |
+| Measure Distance  | Error in Measurement | Variance in Data | Time for Kalman Variance to decrease below 0.0001 |
 | ------------ | ----------- | ----------- | ----------- |
-|     :200:     |     :2.54%:     |     :0.295864:     |     :3.31 s:     |
-|     :850:     |     :0.83%:     |     :0.321486:     |     :2.77 s:     |
-|     :1500:     |     :0.45%:     |     :0.902735:     |     :2.93 s:     |
+|     200    |     2.54%     |     0.295864     |     3.31 s     |
+|     850     |     0.83%    |     0.321486     |     2.77 s     |
+|     1500     |     0.45%     |     0.902735     |     2.93 s     |
 
 ---
 
@@ -190,6 +190,12 @@ The experimental result for Sensor Fusion of Two Ultrasonic Sensors to measure a
 <div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture12.png"/></div>  
 
 The experimental results are organized in table 3.
+
+| Measure Distance  | Error in Measurement | Variance in Data | Time for Kalman Variance to decrease below 0.0001 |
+| ------------ | ----------- | ----------- | ----------- |
+|     200    |     0.97%     |     1.878630     |     3.35 s     |
+|     850     |     0.31%    |     0.215971     |     3.47 s     |
+|     1500     |     0.83%     |     0.091745     |     3.79 s     |
 
 ---
 
