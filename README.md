@@ -99,74 +99,78 @@ The experimental results are organized in table 2:
 *table*
 ---
 
-## Autonomous Lane Keeping
+## Sensor Fusion of Two Ultrasonic Sensors
 
 ---
 
 ## 2.1 Problem Statement
 
-To not hit any boundaries on a predefined path and pass five-lane checkpoints
-
-<div align=center><img src="https://github.com/ZhaiKexuan/Adaptive-Cruise-Control-and-Autonomous-Lane-Keeping/blob/master/imgaes/Picture5.png"/></div>
+The second task is to use two ultrasonic sensors to accurately measure a range of distances between 20 and 150 cm
 
 ---
 
-
 ## 2.2	Technical Approach
 
-- Sensor Placement
-  - The team decided to use two sensors with Kalman filter sensor fusion because that set-up resulted in less error and variance than using only one sensor
-  - The team decided to place the two sensors on the left side of the vehicle because the team felt that the wall on the left side of the path would provide more accurate measurements than the boxes on the right side of the path
+- Fusion with Kalman filter  
+The technical approach for sensor fusion is shown below:
+  - The technical approach for sensor fusion is shown below: in less error and variance than using only one sensor
+  - Set the same initialized updated error covariance to 100000.
+  - Prediction stage using the first sensor output as the prediction
+  - Correction stage 1 updated state estimate using the first sensor output
+  - Correction stage 2 updated state estimate using the second sensor output and state estimate from correction stage 1
 
-- Sampling
-  - Send and receive sound waves from two ultrasonic sensors
-  - Read high pulse durations of both sensors
-  - Before Kalman filter fusion implementation, divide sensor outputs by 200 to convert into total time value in microseconds
 
-- Filtteing
-  - Used same R-value for both sensors as calculated in part 2 of project 1
-  - Set same initialized updated error covariance to 100000
-  - rediction stage using the first sensor output as the prediction
-  - Correction stage 3 updated state estimate using the third sensor output
-  - Correction stage 4 updated state estimate using fourth sensor output and state estimate from correction stage 3
-
-- PID Controller
-  - Set reference distance of 305 so that the vehicle would stay between the five-lane checkpoints along the path
-  - Used PID error (the difference between reference distance and sensor output) along with PID gains to calculate PID value (throttle)
-  - PID value was used to tell the vehicle whether to reverse, stay neutral, or go forward
-  - Tuned PID gains to optimize performance of the vehicle (kp = 1, ki = 0, kd = 0.7)
+- Calibration  
+The same calibration coefficients were obtained as discovered in part 1. However, Calibration was performed before Kalman filter implementation rather than after. The technical approach for calibration is shown below:
+  - Used calibration coefficients determined in part 1.
+  - Converted sensor output to the distance in mm using calibration coefficients before Kalman filter implementation, rather than after as in part 1.
 
 ---
 
 ## 2.3	Hardware and Software Implementation
 
-- Hardware Implementation:
-  - The vehicle battery pack used to power servo motor for throttle
-  - Portable power bank used to power Arduino
-  - Steering control powered by Arduino Vin pin
-  - Ultrasonic sensor 3:
-    - Trig to Arduino pin 9
-    - Echo to Arduino pin 8
-  - Ultrasonic sensor 4:
-    - Trig to Arduino pin 7
-    - Echo to Arduino pin 6
+- Hardware Implementation:  
+The hardware connection follows these steps:
+  - Ultrasonic sensor 1:
+    - Trig connected to Arduino pin 13
+    - Echo connected to Arduino pin 12
+    - The power is 5V 
+    - Different ground than LED and buzzer
+  - Ultrasonic sensor 2:
+    - Trig connected to Arduino pin 11
+    - Echo connected to Arduino pin 10
+    - Shared same power as sensor 1
+    - Shared same ground as sensor 1
 
-- Programming:
-  - Constrain steering values to a maximum of 80 for left and 100 for right
-  - If the car is moving forward and the obstacle is greater than 1500 mm away, set vehicle to PID steering and PID throttle values for 300 microseconds, then set vehicle to neutral steering and throttle for 100 microseconds, then set vehicle to neutral steering and maximum reverse for 75 microseconds, and then set vehicle to neutral steering and throttle for 50 microseconds
-  - Same procedure as above if the car is stationary and the obstacle is greater than 1500 mm away
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture9.png"/></div>  
+
+- Software Implementation:  
+The programming process follows these steps (Same process as part 1, except for the following changes):
+  - Needed to define hardware connections for sensor 2
+  - Needed to initialize Kalman variables and covariances for two Kalman correction stages rather than one and PID throttle values for 300 microseconds, then set vehicle to neutral steering and throttle for 100 microseconds, then set vehicle to neutral steering and maximum reverse for 75 microseconds, and then set vehicle to neutral steering and throttle for 50 microseconds
+  - Needed to declare the calibration coefficients for sensor 2
+  - Needed to initialize measurement variables for two sensors rather than one
+  - Needed to send and receive sound waves from two sensors rather than one
+  - Needed to use two Kalman filter correction stages rather than one
+  - Conducted calibration before Kalman filter implementation, rather than afterward as in part 1
 
 ---
 
 ## 2.4 Experimental Results
 
-The figure shows that the vehicle was running in the lane:
+The experimental result for Sensor Fusion of Two Ultrasonic Sensors to measure an obstacle 200 mm away is shown in figure 11. The error in measurement is 0.97%, the variance in data is 1.878630 and time for Kalman Variance to decrease bellow 0.0001 is 3.35 s.
 
-<div align=center><img src="https://github.com/ZhaiKexuan/Adaptive-Cruise-Control-and-Autonomous-Lane-Keeping/blob/master/imgaes/Picture6.png"/></div>
+<div align=center><img src="https://github.com/ZhaiKexuan/Adaptive-Cruise-Control-and-Autonomous-Lane-Keeping/blob/master/imgaes/Picture7.png"/></div>  
 
----
+The experimental result for Sensor Fusion of Two Ultrasonic Sensors to measure an obstacle 850 mm away is shown in figure 12. The error in measurement is 0.31%, the variance in data is 0.215971 and time for Kalman Variance to decrease bellow 0.0001 is 3.47 s.
 
-## Conclusions and Discussions
+<div align=center><img src="https://github.com/ZhaiKexuan/Adaptive-Cruise-Control-and-Autonomous-Lane-Keeping/blob/master/imgaes/Picture8.png"/></div>  
+
+The experimental result for Sensor Fusion of Two Ultrasonic Sensors to measure an obstacle 1500 mm away is shown in figure 13. The error in measurement is 0.83%, the variance in data is 0.091745 and time for Kalman Variance to decrease bellow 0.0001 is 3.79 s.
+
+<div align=center><img src="https://github.com/ZhaiKexuan/Adaptive-Cruise-Control-and-Autonomous-Lane-Keeping/blob/master/imgaes/Picture9.png"/></div>  
+
+The experimental results are organized in table 3.
 
 ---
 ## 3.1 Conclusions (a summary of the results of different approaches)
