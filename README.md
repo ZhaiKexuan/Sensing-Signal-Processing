@@ -1,15 +1,15 @@
-# Implement Adaptive Cruise Control and Autonomous Lane Keeping on RC Vehicles Utilizing Arduino UNO
+# Ultrasonic Sensing Signal Processing
 
 *Author: Kexuan Zhai*
 
-## Adaptive Cruise Control
+## Signal Processing for One Ultrasonic Sensor
 ---
 
 ## 1.1 Problem Statement
 
-To keep the vehicle 30 cm away from any obstacle ahead. If obstacles ahead are stationary, the vehicle should stop 30 cm away from the obstacles.
+The problem for this task is to use one ultrasonic sensor to accurately measure a range of distances between 20 and 150 cm.
 
-<div align=center><img src="https://github.com/ZhaiKexuan/Adaptive-Cruise-Control-and-Autonomous-Lane-Keeping/blob/master/imgaes/Picture1.png"/></div>
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture1.png"/></div>
 
 ---
 
@@ -17,14 +17,13 @@ To keep the vehicle 30 cm away from any obstacle ahead. If obstacles ahead are s
 
 - Sensor Placement
 
-The team decided to place two sensors at the front of the vehicle and use Kalman filter sensor fusion
-
 - Sampling
-  - Send and receive sound waves from two ultrasonic sensors
-  - Read high pulse durations of both sensors
-  - Before Kalman filter fusion implementation, divide sensor outputs by 200 to convert into total time value in microseconds
+  - The first step is sending and receiving sound waves from the ultrasonic sensor. To implement that, the Arduino is utilized for programming
+  - The second step is reading high pulse duration
+  - The third step is dividing Kalman filter output by 200 to convert into total time value in microseconds after Kalman filter implementation
 
-- Fusion with Kalman filter
+- Kalman filter
+  The R-value (measurement confidence) is determined offline utilizing the average method. The sequence of the method is shown below:
   - Used same R-value for both sensors as calculated in part 2 of project 1
   - Set same initialized updated error covariance to 100000
   - rediction stage using the first sensor output as the prediction
