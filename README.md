@@ -173,6 +173,117 @@ The experimental result for Sensor Fusion of Two Ultrasonic Sensors to measure a
 The experimental results are organized in table 3.
 
 ---
+
+## Ultrasound-based Localization
+
+---
+
+## 3.1 Problem Statement
+
+The problem statement for task 3 is to use two ultrasonic sensors to accurately measure the x and y coordinates (localization) of a cylindrical object for a range of 3 cm to 15 cm in the x-direction and 40 cm to 80 cm in the y-direction.
+
+---
+
+## 3.2	Technical Approach
+
+- Sampling
+The technical approach for sampling is shown below:
+  - Send and receive sound waves from the first ultrasonic sensor
+  - Read high pulse durations of the first sensor
+  - Divide high pulse duration of sensor 1 by 200 to convert into the total time value of microseconds
+  - Send a delay of 100 microseconds to avoid interference between the two sensor signals
+  - Send and receive sound waves from the second ultrasonic sensor
+  - Read high pulse durations of the second sensor
+  - Divide high pulse duration of sensor 2 by 200 to convert into the total time value of microseconds
+  - No delay at end of loop resulted in the fastest possible sampling rate
+
+- Four separate Kalman filters (two before localization, two after localization)  
+The technical approach for Kalman filter includes the following steps:
+  - Filter 1 (before localization)
+    - Prediction phase for sensor 1 distance
+    - Correction phase for sensor 1 distance
+  - Filter 2 (before localization)
+    - Prediction phase for sensor 2 distance
+    - Correction phase for sensor 2 distance
+  - Filter 3 (before localization)
+    - Prediction phase for sensor 3 distance
+    - Correction phase for sensor 3 distance
+  - Filter 4 (before localization)
+    - Prediction phase for sensor 4 distance
+    - Correction phase for sensor 4 distance
+
+- Calibration
+The technical approach for calibration includes the following steps:
+  - Used calibration coefficients determined in part 1
+  - Converted sensor output to distance in mm using calibration coefficients before Kalman filter implementation, rather than after as in part 1
+  - When converting sensor output to distance in mm, added the radius of the cylindrical object in order to calculate the distance to the center of the object
+
+- Localization  
+The equations of localization is shown below:
+
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/equation1.png"/></div>  
+
+---
+
+## 3.3	Hardware and Software Implementation
+
+- Hardware Implementation:  
+The hardware connection follows these steps:
+  - Ultrasonic sensor 1:
+    - Trig connected to Arduino pin 13
+    - Echo connected to Arduino pin 12
+    - The power is 5V 
+    - Different ground than LED and buzzer
+  - Ultrasonic sensor 2:
+    - Trig connected to Arduino pin 11
+    - Echo connected to Arduino pin 10
+    - Shared same power as sensor 1
+    - Shared same ground as sensor 1
+
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture9.jpg"/></div>  
+
+- Software Implementation:  
+The programming process follows these steps (Same process as part 1, except for the following changes):
+  - Needed to define hardware connections for sensor 2
+  - Needed to initialize Kalman variables and covariances for two Kalman correction stages rather than one and PID throttle values for 300 microseconds, then set vehicle to neutral steering and throttle for 100 microseconds, then set vehicle to neutral steering and maximum reverse for 75 microseconds, and then set vehicle to neutral steering and throttle for 50 microseconds
+  - Needed to declare the calibration coefficients for sensor 2
+  - Needed to initialize measurement variables for two sensors rather than one
+  - Needed to send and receive sound waves from two sensors rather than one
+  - Needed to use two Kalman filter correction stages rather than one
+  - Conducted calibration before Kalman filter implementation, rather than afterward as in part 1
+
+---
+
+## 3.4 Experimental Results
+
+The experimental result for Sensor Fusion of Two Ultrasonic Sensors to measure an obstacle 200 mm away is shown in figure 11. The error in measurement is 0.97%, the variance in data is 1.878630 and time for Kalman Variance to decrease bellow 0.0001 is 3.35 s.
+
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture10.png"/></div>  
+
+The experimental result for Sensor Fusion of Two Ultrasonic Sensors to measure an obstacle 850 mm away is shown in figure 12. The error in measurement is 0.31%, the variance in data is 0.215971 and time for Kalman Variance to decrease bellow 0.0001 is 3.47 s.
+
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture11.png"/></div>  
+
+The experimental result for Sensor Fusion of Two Ultrasonic Sensors to measure an obstacle 1500 mm away is shown in figure 13. The error in measurement is 0.83%, the variance in data is 0.091745 and time for Kalman Variance to decrease bellow 0.0001 is 3.79 s.
+
+<div align=center><img src="https://github.com/ZhaiKexuan/Sensing-Signal-Processing/blob/master/images/Picture12.png"/></div>  
+
+The experimental results are organized in table 3.
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 3.1 Conclusions (a summary of the results of different approaches)
 
 - The ACC of the vehicle was implemented successfully, with the front of the vehicle consistently stopping at exactly 30 cm from obstacles in front
